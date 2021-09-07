@@ -1,10 +1,10 @@
 package com.upgrad.frs;
 
 public class Flight {
-    int fNumber;
-    int fSeatsBooked;
-    int fCapacity;
-    String fAirlineName;
+    private int fNumber;
+    private int fSeatsBooked;
+    private int fCapacity;
+    private String fAirlineName;
 
     public Flight(int fNumber, int fSeatsBooked, int fCapacity, String fAirlineName) {
         this.fNumber = fNumber;

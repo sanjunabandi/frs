@@ -1,51 +1,59 @@
 package com.upgrad.frs;
 
-public class Ticket {
-    String tPnrNumber;
-    String tSource;
-    String tDestination;
-    Flight flight;
-    String tArrivalTime;
-    String tDeparatureTime;
-    String passenger;
-    String tSeatNumber;
-    String tStatus;
-    String tPrice;
+public abstract class Ticket {
+    private static int pnrCounter;
+    private String tPnrNumber;
+    private String tSource;
+    private String tDestination;
+    private Flight flight;
+    private String tArrivalTime;
+    private String tDeparatureTime;
+    private Passenger passenger;
+    private String tSeatNumber;
+    private String tStatus;
+    private String tPrice;
 
-    public Ticket(String tPnrNumber, String tSource, String tDestination, Flight flight, String tArrivalTime, String tDeparatureTime, String passenger, String tSeatNumber, String tStatus, String tPrice) {
-        this.tPnrNumber = tPnrNumber;
+    static {
+        pnrCounter = 0;
+    }
+
+    public String getPnrNumber() {
+        return this.tPnrNumber;
+    }
+    public Ticket(Passenger p, int flightNmber, int flightSeatsBooked,
+                  int flightCapacity, String flightAirlineName,
+                  String tSource, String tDestination,String tArrivalTime,
+                  String tDeparatureTime, String tSeatNumber,
+                  String tStatus, String tPrice) {
+        this.flight = new Flight(flightNmber, flightSeatsBooked, flightCapacity, flightAirlineName);
+        this.passenger = p;
+        this.tPnrNumber = Integer.toString(++pnrCounter);
         this.tSource = tSource;
         this.tDestination = tDestination;
-        this.flight = flight;
         this.tArrivalTime = tArrivalTime;
         this.tDeparatureTime = tDeparatureTime;
-        this.passenger = passenger;
         this.tSeatNumber = tSeatNumber;
         this.tStatus = tStatus;
         this.tPrice = tPrice;
     }
 
-    public String gettPnrNumber() {
-        return tPnrNumber;
-    }
-
-    public void settPnrNumber(String tPnrNumber) {
+    public void setPnrNumber(String tPnrNumber) {
         this.tPnrNumber = tPnrNumber;
     }
 
-    public String gettSource() {
+    public String getSource() {
         return tSource;
     }
 
-    public void settSource(String tSource) {
+    public void setSource(String tSource) {
         this.tSource = tSource;
     }
 
-    public String gettDestination() {
+    public String getDestination() {
         return tDestination;
     }
 
-    public void settDestination(String tDestination) {
+    public void setDestination(String tDestination) {
         this.tDestination = tDestination;
     }
 
@@ -57,15 +65,15 @@ public class Ticket {
         this.flight = flight;
     }
 
-    public String gettArrivalTime() {
+    public String getArrivalTime() {
         return tArrivalTime;
     }
 
-    public void settArrivalTime(String tArrivalTime) {
+    public void setArrivalTime(String tArrivalTime) {
         this.tArrivalTime = tArrivalTime;
     }
 
-    public String gettDeparatureTime() {
+    public String getDeparatureTime() {
         return tDeparatureTime;
     }
 
@@ -73,31 +81,35 @@ public class Ticket {
         this.tDeparatureTime = tDeparatureTime;
     }
 
-    public String getPassenger() {
-        return passenger;
+    public String getPassengerContact() {
+        return passenger.getContactDetails();
     }
 
-    public void setPassenger(String passenger) {
-        this.passenger = passenger;
+    public String getPassengerAddress() {
+        return passenger.getAddressDetails();
     }
 
-    public String gettSeatNumber() {
+    public int getPassengerId() {
+        return passenger.getId();
+    }
+
+    public String getSeatNumber() {
         return tSeatNumber;
     }
 
-    public void settSeatNumber(String tSeatNumber) {
+    public void setSeatNumber(String tSeatNumber) {
         this.tSeatNumber = tSeatNumber;
     }
 
-    public String gettStatus() {
+    public String getStatus() {
         return tStatus;
     }
 
-    public void settStatus(String tStatus) {
+    public void setStatus(String tStatus) {
         this.tStatus = tStatus;
     }
 
-    public String gettPrice() {
+    public String getPrice() {
         return tPrice;
     }
 

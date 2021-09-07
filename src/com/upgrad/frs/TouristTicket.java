@@ -1,10 +1,16 @@
 package com.upgrad.frs;
 
-public class TouristTicket {
-    String hotelAddress;
-    String[] tourismLocationSelected = new String[5];
+public class TouristTicket extends Ticket{
+    private String hotelAddress;
+    private String[] tourismLocationSelected = new String[5];
 
-    public TouristTicket(String hotelAddress, String[] tourismLocationSelected) {
+    public TouristTicket(Passenger p, int flightNumber, int flightSeatsBooked,
+                         int flightCapacity, String flightAirlineName,
+                         String tSource, String tDestination,String tArrivalTime,
+                         String tDeparatureTime, String tSeatNumber,
+                         String tStatus, String tPrice, String hotelAddress, String[] tourismLocationSelected) {
+            super(p, flightNumber, flightSeatsBooked, flightCapacity, flightAirlineName,
+                    tSource, tDestination,tArrivalTime, tDeparatureTime, tSeatNumber, tStatus, tPrice);
         this.hotelAddress = hotelAddress;
         this.tourismLocationSelected = tourismLocationSelected;
     }
