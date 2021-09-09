@@ -13,47 +13,54 @@ public class Flight {
         this.fAirlineName = fAirlineName;
     }
 
-    public int getfNumber() {
-        return fNumber;
+    public int getFlightNumber() {
+        return this.fNumber;
     }
 
-    public void setfNumber(int fNumber) {
-        this.fNumber = fNumber;
-    }
-
-    public int getfSeatsBooked() {
+    public int getSeatsBooked() {
         return fSeatsBooked;
     }
 
-    public void setfSeatsBooked(int fSeatsBooked) {
+    public void setSeatsBooked(int fSeatsBooked) {
         this.fSeatsBooked = fSeatsBooked;
     }
 
-    public int getfCapacity() {
+    public int getFlightCapacity() {
         return fCapacity;
     }
 
-    public void setfCapacity(int fCapacity) {
+    public void setFlightCapacity(int fCapacity) {
         this.fCapacity = fCapacity;
     }
 
-    public String getfAirlineName() {
+    public String getAirlineName() {
         return fAirlineName;
     }
 
-    public void setfAirlineName(String fAirlineName) {
+    public void setAirlineName(String fAirlineName) {
         this.fAirlineName = fAirlineName;
     }
 
     public String getFlightDetails() {
-        return "";
+        return "Flight Details: " + getFlightNumber() + ", " + getAirlineName() + ", " + getSeatsBooked() + ", " + getFlightCapacity();
     }
 
     public boolean isSeatAvailable() {
-        return true; //TODO
+        if (this.fCapacity <= this.fSeatsBooked) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    public void updateSeatsAvailable() {
+    public int updateSeatsAvailability(int fCapacity, int fSeatsBooked) {
+        this.fCapacity = fCapacity;
+        this.fSeatsBooked = fSeatsBooked;
+        return this.fCapacity - this.fSeatsBooked;
+    }
 
+
+    public int getAvailableSeats() {
+        return this.fCapacity - this.fSeatsBooked;
     }
 }

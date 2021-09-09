@@ -63,7 +63,7 @@ public class Passenger {
         contact.email = email;
     }
 
-    public int getPassengerCount(){
+    public int getPassengerCount() {
         return this.idCounter;
     }
 }

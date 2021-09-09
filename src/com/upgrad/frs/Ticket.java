@@ -20,14 +20,12 @@ public abstract class Ticket {
     public String getPnrNumber() {
         return this.tPnrNumber;
     }
-    public Ticket(Passenger p, int flightNmber, int flightSeatsBooked,
-                  int flightCapacity, String flightAirlineName,
-                  String tSource, String tDestination,String tArrivalTime,
-                  String tDeparatureTime, String tSeatNumber,
-                  String tStatus, String tPrice) {
-        this.flight = new Flight(flightNmber, flightSeatsBooked, flightCapacity, flightAirlineName);
+
+    public Ticket(Passenger p, Flight f, String tSource, String tDestination, String tDeparatureTime,
+                  String tArrivalTime, String tSeatNumber, String tStatus, String tPrice) {
+        this.flight = f;
         this.passenger = p;
-        this.tPnrNumber = Integer.toString(++pnrCounter);
+        this.tPnrNumber = "INDTKT00" + Integer.toString(++pnrCounter);
         this.tSource = tSource;
         this.tDestination = tDestination;
         this.tArrivalTime = tArrivalTime;
@@ -35,10 +33,6 @@ public abstract class Ticket {
         this.tSeatNumber = tSeatNumber;
         this.tStatus = tStatus;
         this.tPrice = tPrice;
-    }
-
-    public void setPnrNumber(String tPnrNumber) {
-        this.tPnrNumber = tPnrNumber;
     }
 
     public String getSource() {
@@ -66,7 +60,7 @@ public abstract class Ticket {
     }
 
     public String getArrivalTime() {
-        return tArrivalTime;
+        return this.tArrivalTime;
     }
 
     public void setArrivalTime(String tArrivalTime) {
@@ -74,7 +68,7 @@ public abstract class Ticket {
     }
 
     public String getDeparatureTime() {
-        return tDeparatureTime;
+        return this.tDeparatureTime;
     }
 
     public void settDeparatureTime(String tDeparatureTime) {
@@ -83,6 +77,10 @@ public abstract class Ticket {
 
     public String getPassengerContact() {
         return passenger.getContactDetails();
+    }
+
+    public Passenger getPassenger() {
+        return this.passenger;
     }
 
     public String getPassengerAddress() {
@@ -101,12 +99,8 @@ public abstract class Ticket {
         this.tSeatNumber = tSeatNumber;
     }
 
-    public String getStatus() {
-        return tStatus;
-    }
-
-    public void setStatus(String tStatus) {
-        this.tStatus = tStatus;
+    public String checkStatus() {
+        return this.tStatus;
     }
 
     public String getPrice() {
@@ -117,15 +111,30 @@ public abstract class Ticket {
         this.tPrice = tPrice;
     }
 
-    public String checkStatus() {
-        return this.tStatus;
-    }
-
     public int getDuration() {
-        return Integer.parseInt(this.tDeparatureTime) - Integer.parseInt(this.tArrivalTime);
+        String[] splitDeparture = this.tDeparatureTime.split(":");
+        String depHoursString = splitDeparture[0];
+        String depMinutesString = splitDeparture[1];
+        int depHours = Integer.parseInt(depHoursString);
+        int depMinutes = Integer.parseInt(depMinutesString);
+
+        String[] splitArrival = this.tArrivalTime.split(":");
+        String arrHoursString = splitArrival[0];
+        String arrMinutesString = splitArrival[1];
+        int arrHours = Integer.parseInt(arrHoursString);
+        int arrMinutes = Integer.parseInt(arrMinutesString);
+
+        if (arrMinutes < depMinutes) {
+            arrHours--;
+            arrMinutes = arrMinutes + 60;
+        }
+
+        int diffInMinutes = ((arrHours - depHours) * 60) + (arrMinutes - depMinutes);
+
+        return diffInMinutes;
     }
 
     public void cancelTicket() {
-
+        this.tStatus = "Cancelled";
     }
 }
